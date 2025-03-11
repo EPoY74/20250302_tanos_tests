@@ -2,9 +2,8 @@
 Тестирование endpoints с авторизацией
 """
 
+import logging
 import unittest
-import json
-from typing import Optional
 
 import requests
 from requests import Response
@@ -14,14 +13,11 @@ import settings_local
 user_name: str = settings_local.user1
 password: str = settings_local.password1
 
-
-def get_value_from_json(json_date, key):
-    data = json.loads(json_date)
-    return data.get(key)
+logging.basicConfig(level=logging.DEBUG)
 
 
 class TestAytorizedAccess(unittest.TestCase):
-    token: Optional[str] = None
+    token: str | None = None
 
     @classmethod
     def setUpClass(cls):
@@ -35,7 +31,7 @@ class TestAytorizedAccess(unittest.TestCase):
         cls.token = cls.get_bearer_token()
 
     @classmethod
-    def get_bearer_token(cls) -> Optional[str]:
+    def get_bearer_token(cls) -> str | None:
         """
         Получение токена авторизации один раз для всего класса
         """
@@ -45,14 +41,11 @@ class TestAytorizedAccess(unittest.TestCase):
             )
             responce.raise_for_status()
             token = responce.json().get("access")
-            # cls.assertIsNotNone(cls.token,
-            #                       "Токен не найден в ответе.")
-            print()
-            print(token)
+            logging.debug(token)
             return token
 
         except requests.exceptions.RequestException as err:
-            print(f"Ошибка при получении токена {err} ")
+            logging.error(f"Ошибка при получении токена {err} ")
             return None
 
     def SetUp(self):
