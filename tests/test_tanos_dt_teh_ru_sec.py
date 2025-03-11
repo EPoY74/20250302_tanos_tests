@@ -1,6 +1,6 @@
 import unittest
-import requests
 
+import requests
 from requests import Response
 
 

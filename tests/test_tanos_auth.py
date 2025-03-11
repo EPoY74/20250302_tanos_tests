@@ -2,8 +2,8 @@
 Тестирование endpoints с авторизацией
 """
 
-import unittest
 import json
+import unittest
 from typing import Optional
 
 import requests
