@@ -24,7 +24,7 @@ def get_value_from_json(json_date, key):
 
 
 class TestAytorizedAccess(unittest.TestCase):
-    token: Optional[str] = None
+    token: str | None = None
 
     @classmethod
     def setUpClass(cls):
@@ -62,49 +62,45 @@ class TestAytorizedAccess(unittest.TestCase):
 
     def test_auth_acces_pas_list(self):
         """
-        Проверяю возвращаемые ключи 
+        Проверяю возвращаемые ключи
           в эндпоинте https://tanos-cp.dt-teh.ru/api/passes/v1/list
         """
-        headers: dict = {'Authorization' : f'Bearer {self.token}'}
-        response: Response|None = None
+        headers: dict = {"Authorization": f"Bearer {self.token}"}
+        response: Response | None = None
         try:
-            response = requests.get(self.api_url,
-                                            headers = headers,
-                                            timeout = 5)
-            err_msg = ( f"Ошибка при запросе, код: {response.status_code} \n"
-                        f"json Ответа: {response.json()} "
-                        )
-            self.assertEqual(response.status_code,
-                            200, err_msg)
-        
+            response = requests.get(self.api_url, headers=headers, timeout=5)
+            err_msg = (
+                f"Ошибка при запросе, код: {response.status_code} \n"
+                f"json Ответа: {response.json()} "
+            )
+            self.assertEqual(response.status_code, 200, err_msg)
+
             car_id_present: int = 0
-            car_id_present = sum( 'car_id' 
-                                 in item for item 
-                                 in response.json()['items']
-                                 )
+            car_id_present = sum(
+                "car_id" in item for item in response.json()["items"]
+            )
             self.assertTrue(car_id_present, "Ключ 'car_id' не найден в ответе")
-            err_msg = (f"Ключ 'car_id' найден в {car_id_present} "
-                       f"элементах из {len(response.json()['items'])} ")
+            err_msg = (
+                f"Ключ 'car_id' найден в {car_id_present} "
+                f"элементах из {len(response.json()['items'])} "
+            )
             logging.error(err_msg)
 
-            for item in response.json()['items']:
+            for item in response.json()["items"]:
                 logging.debug(item)
                 car_id_data = item
-                err_msg = ( 
-                    f'Значение {car_id_data} должно быть integer')
-                self.assertIsInstance(car_id_data, 
-                                      int, err_msg)
+                err_msg = f"Значение {car_id_data} должно быть integer"
+                self.assertIsInstance(car_id_data, int, err_msg)
 
             reg_num_present: int = 0
-            reg_num_present = sum('reg_num' 
-                                  in item for item 
-                                  in response.json()['items']
-                                  )
+            reg_num_present = sum(
+                "reg_num" in item for item in response.json()["items"]
+            )
             err_msg = "Ключ 'reg_num' не найден в ответе"
             self.assertTrue(reg_num_present, errno)
-            info_msg = (f"Ключ 'reg_num' найден в {reg_num_present} "
-                        f"элементах из {len(response.json()['items'])} "
-
+            info_msg = (
+                f"Ключ 'reg_num' найден в {reg_num_present} "
+                f"элементах из {len(response.json()['items'])} "
             )
             logging.debug(info_msg)
 
@@ -126,10 +122,7 @@ class TestAytorizedAccess(unittest.TestCase):
                 f"Код: {response.status_code} \n "
                 f"json Ответа: {response.json()}"
             )
-            self.assertEqual(
-                response.status_code,
-                200,
-                err_msg)
+            self.assertEqual(response.status_code, 200, err_msg)
         except requests.exceptions.RequestException as err:
             self.fail(f"\nОшибка при обращении к endpoint: {err}")
 
