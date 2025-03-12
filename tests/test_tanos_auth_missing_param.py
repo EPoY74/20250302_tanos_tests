@@ -1,14 +1,16 @@
 """
 Тестирование endpoints с авторизацией, 
 но без ввода обязательных параметров. 
-Смотрим, что возврящается, если их не передать
+Смотрим, что возврящается, если их не
 """
 
+import json
 import logging
+from pickle import NONE
 import unittest
 
 import requests
-from requests import Response
+from requests import JSONDecodeError, Response
 
 import settings_local
 
@@ -41,6 +43,9 @@ class TestAytorizedAccess(unittest.TestCase):
     def get_bearer_token(cls) -> str | None:
         """
         Получение токена авторизации один раз для всего класса
+        Returns:
+            str: Токен авторизации, если запрос успешен.
+            None: В случае ошибки (например, сетевой проблемы или невалидного ответа).
         """
         try:
             response: Response = requests.post(
@@ -50,18 +55,36 @@ class TestAytorizedAccess(unittest.TestCase):
             token = response.json().get("access")
             logging.debug(token)
             return token
+        except json.JSONDecodeError as err:
+            logging.error(f"Ошибка получения токена: {err}")
+            return None
         except requests.exceptions.RequestException as err:
             logging.error(f"Ошибка при получении токена {err} ")
             return None
+        except ValueError as err:
+            logging.error(f"Ошибка обработки JSON: {err}")
+            return None
+         
 
 
-    def SetUp(self) -> None:
+    def setUp(self) -> None:
         """
         Вызавается перед каждым методом
         """
-        self.assertIsNotNone(self.token, "Токен не найден в ответе.")
-        self.token: str | None = self.__class__.token
-        self.api_url: str = self.__class__.api_url
+        super().setUp()
+        try:
+            self.assertIsNotNone(self.token, "Токен не найден в ответе.")
+            self.token: str | None = self.__class__.token
+            self.api_url: str = self.__class__.api_url
+        except AttributeError as err:
+            logging.error(f"Атрибут не найден: {err}")
+            self.fail(f"Атрибут не найден: {err}")
+        except requests.exceptions.RequestException as err:
+            logging.error(f"Ошибка:  {err}")
+            self.fail(f"Ошибка:  {err}")
+        except Exception as err:
+            logging.error(f"Непредвиденная ошибка: {err}")
+            self.fail(f"Непредвиденная ошибка: {err}")    
 
 
     def test_auth_pass_list_missing(self) -> None:
@@ -69,7 +92,7 @@ class TestAytorizedAccess(unittest.TestCase):
         Проверяю возвращаемые ключи в эндпоинте
         https://tanos-cp.dt-teh.ru/api/passes/v1/list
         В эндпоинте присутсвуют обязательные параметры.
-        Проверяю, что бы не выдавалась инфоормация, при
+        Проверяю, что бы не выдавалась информация, при
         отсутствии их.
         """
         response: Response | None = None
@@ -87,8 +110,13 @@ class TestAytorizedAccess(unittest.TestCase):
                     f"json Ответа: {response.json()}  "
                 ),
             )
+        except json.JSONDecodeError as err:
+            logging.error(f"Ошибка json: {err}")
         except requests.exceptions.RequestException as err:
             self.fail(f"\nОшибка при обращении к endpoint: {err}")
+        except Exception as err:
+            logging.error(f"Непредвиденная ошибка: {err}")
+            self.fail(f"Непредвиденная ошибка: {err}") 
 
 
     def test_auth_pass_app_list_missing(self) -> None:
@@ -115,8 +143,13 @@ class TestAytorizedAccess(unittest.TestCase):
                     f"json Ответа: {response.json()} "
                 ),
             )
+        except json.JSONDecodeError as err:
+            logging.error(f"Ошибка json: {err}")
         except requests.exceptions.RequestException as err:
             self.fail(f"\nОшибка при обращении к endpoint: {err}")
+        except Exception as err:
+            logging.error(f"Непредвиденная ошибка: {err}")
+            self.fail(f"Непредвиденная ошибка: {err}") 
 
 
 if __name__ == "__main__":
