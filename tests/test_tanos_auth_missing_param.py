@@ -25,11 +25,10 @@ class TestAutorisedAccess(unittest.TestCase):
     """
     token = None
 
-
     @classmethod
     def setUpClass(cls) -> None:
         """
-        Тестирую  url https://tanos-cp.dt-teh.ru/api/passes/v1/list
+        Тестирую url https://tanos-cp.dt-teh.ru/api/passes/v1/list
         Базовые настройки для всего класса 
         """
         cls.api_url = ""
@@ -37,14 +36,14 @@ class TestAutorisedAccess(unittest.TestCase):
         cls.auth_payload: dict = {"phone": user_name, "password": password}
         cls.token = cls.get_bearer_token()
 
-
     @classmethod
     def get_bearer_token(cls) -> str | None:
         """
         Получение токена авторизации один раз для всего класса
         Returns:
             str: Токен авторизации, если запрос успешен.
-            None: В случае ошибки (например, сетевой проблемы или невалидного ответа).
+            None: В случае ошибки 
+            (например, сетевой проблемы или невалидного ответа).
         """
         try:
             response: Response = requests.post(
@@ -56,15 +55,10 @@ class TestAutorisedAccess(unittest.TestCase):
             return token
         except json.JSONDecodeError as err:
             logging.error(f"Ошибка получения токена: {err}")
-            return None
         except requests.exceptions.RequestException as err:
             logging.error(f"Ошибка при получении токена {err} ")
-            return None
         except ValueError as err:
             logging.error(f"Ошибка обработки JSON: {err}")
-            return None
-         
-
 
     def setUp(self) -> None:
         """
@@ -84,7 +78,6 @@ class TestAutorisedAccess(unittest.TestCase):
         except Exception as err:
             logging.error(f"Непредвиденная ошибка: {err}")
             self.fail(f"Непредвиденная ошибка: {err}")    
-
 
     def test_auth_pass_list_missing(self) -> None:
         """
@@ -116,7 +109,6 @@ class TestAutorisedAccess(unittest.TestCase):
         except Exception as err:
             logging.error(f"Непредвиденная ошибка: {err}")
             self.fail(f"Непредвиденная ошибка: {err}") 
-
 
     def test_auth_pass_app_list_missing(self) -> None:
         """
