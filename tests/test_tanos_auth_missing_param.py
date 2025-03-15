@@ -1,30 +1,29 @@
 """
-Тестирование endpoints с авторизацией, 
+Тестирование endpoints c авторизацией, 
 но без ввода обязательных параметров. 
-Смотрим, что возврящается, если их не
+Смотрим, что возврящается, если они отсутствуют
 """
 
 import json
 import logging
-from pickle import NONE
 import unittest
 
 import requests
-from requests import JSONDecodeError, Response
+from requests import Response
 
 import settings_local
 
-user_name: str = settings_local.user1
-password: str = settings_local.password1
+user_name = settings_local.user1
+password = settings_local.password1
 
 logging.basicConfig(level=logging.DEBUG)
 
 
-class TestAytorizedAccess(unittest.TestCase):
+class TestAutorisedAccess(unittest.TestCase):
     """
     Класс для тесторования API с неуказанными обязательными параметрами
     """
-    token: str | None = None
+    token = None
 
 
     @classmethod
@@ -33,8 +32,8 @@ class TestAytorizedAccess(unittest.TestCase):
         Тестирую  url https://tanos-cp.dt-teh.ru/api/passes/v1/list
         Базовые настройки для всего класса 
         """
-        cls.api_url: str = ""
-        cls.auth_url: str = "https://tanos-cp.dt-teh.ru/api/token/pair"
+        cls.api_url = ""
+        cls.auth_url = "https://tanos-cp.dt-teh.ru/api/token/pair"
         cls.auth_payload: dict = {"phone": user_name, "password": password}
         cls.token = cls.get_bearer_token()
 
@@ -74,8 +73,8 @@ class TestAytorizedAccess(unittest.TestCase):
         super().setUp()
         try:
             self.assertIsNotNone(self.token, "Токен не найден в ответе.")
-            self.token: str | None = self.__class__.token
-            self.api_url: str = self.__class__.api_url
+            self.token = self.__class__.token
+            self.api_url = self.__class__.api_url
         except AttributeError as err:
             logging.error(f"Атрибут не найден: {err}")
             self.fail(f"Атрибут не найден: {err}")
@@ -95,8 +94,8 @@ class TestAytorizedAccess(unittest.TestCase):
         Проверяю, что бы не выдавалась информация, при
         отсутствии их.
         """
-        response: Response | None = None
-        headers: dict = {"Authorization": f"Bearer {self.token}"}
+        response = None
+        headers = {"Authorization": f"Bearer {self.token}"}
         self.api_url = (
             "https://tanos-cp.dt-teh.ru/api/passes/v1/application/list"
         )
@@ -130,8 +129,8 @@ class TestAytorizedAccess(unittest.TestCase):
         self.api_url = (
             "https://tanos-cp.dt-teh.ru/api/passes/v1/application/list"
         )
-        headers: dict = {"Authorization": f"Bearer {self.token}"}
-        response: Response | None = None
+        headers = {"Authorization": f"Bearer {self.token}"}
+        response = None
         try:
             response = requests.get(self.api_url, headers=headers, timeout=5)
             self.assertEqual(
