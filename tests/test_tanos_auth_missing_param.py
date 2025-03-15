@@ -62,7 +62,7 @@ class TestAutorisedAccess(unittest.TestCase):
 
     def setUp(self) -> None:
         """
-        Вызавается перед каждым методом
+        Вызывается перед каждым методом
         """
         super().setUp()
         try:
@@ -73,8 +73,8 @@ class TestAutorisedAccess(unittest.TestCase):
             logging.error(f"Атрибут не найден: {err}")
             self.fail(f"Атрибут не найден: {err}")
         except requests.exceptions.RequestException as err:
-            logging.error(f"Ошибка:  {err}")
-            self.fail(f"Ошибка:  {err}")
+            logging.error(f"Ошибка: {err}")
+            self.fail(f"Ошибка: {err}")
         except Exception as err:
             logging.error(f"Непредвиденная ошибка: {err}")
             self.fail(f"Непредвиденная ошибка: {err}")    
@@ -84,8 +84,7 @@ class TestAutorisedAccess(unittest.TestCase):
         Проверяю возвращаемые ключи в эндпоинте
         https://tanos-cp.dt-teh.ru/api/passes/v1/list
         В эндпоинте присутсвуют обязательные параметры.
-        Проверяю, что бы не выдавалась информация, при
-        отсутствии их.
+        Проверяю, что бы не выдавалась информация, при отсутствии их.
         """
         response = None
         headers = {"Authorization": f"Bearer {self.token}"}
