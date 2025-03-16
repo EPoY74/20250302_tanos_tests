@@ -72,12 +72,15 @@ class TestAutorisedAccess(unittest.TestCase):
         except AttributeError as err:
             logging.error(f"Атрибут не найден: {err}")
             self.fail(f"Атрибут не найден: {err}")
+            return
         except requests.exceptions.RequestException as err:
             logging.error(f"Ошибка: {err}")
             self.fail(f"Ошибка: {err}")
+            return
         except Exception as err:
             logging.error(f"Непредвиденная ошибка: {err}")
-            self.fail(f"Непредвиденная ошибка: {err}")    
+            self.fail(f"Непредвиденная ошибка: {err}")
+            return    
 
     def test_auth_pass_list_missing(self) -> None:
         """
