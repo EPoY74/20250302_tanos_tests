@@ -55,9 +55,12 @@ class TestAutorisedAccess(unittest.TestCase):
             return token
         except json.JSONDecodeError as err:
             logging.error(f"Ошибка получения токена: {err}")
+            return
         except requests.exceptions.RequestException as err:
             logging.error(f"Ошибка при получении токена {err} ")
+            return
         except ValueError as err:
+            return
             logging.error(f"Ошибка обработки JSON: {err}")
 
     def setUp(self) -> None:
@@ -106,11 +109,14 @@ class TestAutorisedAccess(unittest.TestCase):
             )
         except json.JSONDecodeError as err:
             logging.error(f"Ошибка json: {err}")
+            return
         except requests.exceptions.RequestException as err:
             self.fail(f"\nОшибка при обращении к endpoint: {err}")
+            return
         except Exception as err:
             logging.error(f"Непредвиденная ошибка: {err}")
             self.fail(f"Непредвиденная ошибка: {err}") 
+            return
 
     def test_auth_pass_app_list_missing(self) -> None:
         """
@@ -138,11 +144,15 @@ class TestAutorisedAccess(unittest.TestCase):
             )
         except json.JSONDecodeError as err:
             logging.error(f"Ошибка json: {err}")
+            return
         except requests.exceptions.RequestException as err:
-            self.fail(f"\nОшибка при обращении к endpoint: {err}")
+            logging.error(f"Ошибка при обращении к endpoint: {err}")
+            self.fail(f"Ошибка при обращении к endpoint: {err}")
+            return
         except Exception as err:
             logging.error(f"Непредвиденная ошибка: {err}")
-            self.fail(f"Непредвиденная ошибка: {err}") 
+            self.fail(f"Непредвиденная ошибка: {err}")
+            return
 
 
 if __name__ == "__main__":
