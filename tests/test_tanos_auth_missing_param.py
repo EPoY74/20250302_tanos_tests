@@ -54,14 +54,17 @@ class TestAutorisedAccess(unittest.TestCase):
             logging.debug(token)
             return token
         except json.JSONDecodeError as err:
-            logging.error(f"Ошибка получения токена: {err}")
-            return
+            err_message = f"Ошибка получения токена: {err}"
+            logging.error(err_message)
+            raise RuntimeError(err_message)
         except requests.exceptions.RequestException as err:
-            logging.error(f"Ошибка при получении токена {err} ")
-            return
+            err_message = f"Ошибка при получении токена {err}"
+            logging.error(err_message)
+            raise RuntimeError(err_message)
         except ValueError as err:
-            return
-            logging.error(f"Ошибка обработки JSON: {err}")
+            err_message = f"Ошибка обработки JSON: {err}"
+            logging.error(err_message)
+            raise RuntimeError(err_message)
 
     def setUp(self) -> None:
         """
@@ -109,9 +112,11 @@ class TestAutorisedAccess(unittest.TestCase):
             )
         except json.JSONDecodeError as err:
             logging.error(f"Ошибка json: {err}")
+            self.fail(f"Ошибка json: {err}")
             return
         except requests.exceptions.RequestException as err:
-            self.fail(f"\nОшибка при обращении к endpoint: {err}")
+            logging.error(f"Ошибка при обращении к endpoint: {err}")
+            self.fail(f"Ошибка при обращении к endpoint: {err}")
             return
         except Exception as err:
             logging.error(f"Непредвиденная ошибка: {err}")
