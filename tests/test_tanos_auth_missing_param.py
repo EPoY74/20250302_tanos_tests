@@ -76,8 +76,9 @@ class TestAutorisedAccess(unittest.TestCase):
         try:
             # self.assertIsNotNone(self.token, "Токен не найден в ответе.")
             if self.__class__.token is None:
-                logging.error("Токен не инициализирован в setUpClass()")
-                self.fail("Токен не инициализирован в setUpClass()")
+                err_message = "Токен не инициализирован в setUpClass()"
+                logging.error(err_message)
+                self.fail(err_message)
             self.token = self.__class__.token
             self.api_url = self.__class__.api_url
         except AttributeError as err:
