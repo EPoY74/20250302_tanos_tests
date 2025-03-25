@@ -16,7 +16,9 @@ import settings_local
 user_name = settings_local.user1
 password = settings_local.password1
 
-logging.basicConfig(level=logging.DEBUG)
+#logging.DEBUG - если нужно больше информации
+#logging.ERROR - если нужны только ошибки
+logging.basicConfig(level=logging.ERROR)
 
 
 class TestAutorisedAccess(unittest.TestCase):
@@ -72,7 +74,10 @@ class TestAutorisedAccess(unittest.TestCase):
         """
         super().setUp()
         try:
-            self.assertIsNotNone(self.token, "Токен не найден в ответе.")
+            # self.assertIsNotNone(self.token, "Токен не найден в ответе.")
+            if self.__class__.token is None:
+                logging.error("Токен не инициализирован в setUpClass()")
+                self.fail("Токен не инициализирован в setUpClass()")
             self.token = self.__class__.token
             self.api_url = self.__class__.api_url
         except AttributeError as err:
