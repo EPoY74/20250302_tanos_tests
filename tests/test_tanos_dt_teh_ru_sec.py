@@ -192,7 +192,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         Тестирование эндпоинта /pass-type/list
         """
-        url: str = "https://tanos-cp.dt-teh.ru/api/passes/v1/pass-type/list"
+        url = "https://tanos-cp.dt-teh.ru/api/passes/v1/pass-type/list"
         response: Response = requests.get(url)
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
@@ -213,14 +213,14 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается  "Unauthorized" получено {response_data["message"]}',
+            f'Ожидается "Unauthorized" получено {response_data["message"]}',
         )
 
     def test_unauth_access_app_status_list(self):
         """
         Тестирование эндпоинта /status/list
         """
-        url: str = (
+        url = (
             "https://tanos-cp.dt-teh.ru/api/passes/v1/application/status/list"
         )
         response: Response = requests.get(url)
@@ -243,14 +243,14 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается  "Unauthorized" получено {response_data["message"]}',
+            f'Ожидается "Unauthorized" получено {response_data["message"]}',
         )
 
     def test_unauth_access_comp_list(self):
         """
-        Тестирование эндпоинта https://tanos-cp.dt-teh.ru/api/passes/v1/company/list
+        Тестирование эндпоинта /company/list
         """
-        url: str = "https://tanos-cp.dt-teh.ru/api/passes/v1/company/list"
+        url = "https://tanos-cp.dt-teh.ru/api/passes/v1/company/list"
         response: Response = requests.get(url)
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
@@ -271,14 +271,14 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается  "Unauthorized" получено {response_data["message"]}',
+            f'Ожидается "Unauthorized" получено {response_data["message"]}',
         )
 
     def test_unauth_access_transp_list(self):
         """
-        Тестирование эндпоинта https://tanos-cp.dt-teh.ru/api/passes/v1/transport_owner_by_vrc/list
+        Тестирование эндпоинта /transport_owner_by_vrc/list
         """
-        url: str = "https://tanos-cp.dt-teh.ru/api/passes/v1/transport_owner_by_vrc/list"
+        url = "https://tanos-cp.dt-teh.ru/api/passes/v1/transport_owner_by_vrc/list"
         response: Response = requests.get(url)
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
@@ -299,14 +299,14 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается  "Unauthorized" получено {response_data["message"]}',
+            f'Ожидается "Unauthorized" получено {response_data["message"]}',
         )
 
     def test_unauth_access_serv_list(self):
         """
         Тестирование эндпоинта /services/list
         """
-        url: str = "https://tanos-cp.dt-teh.ru/api/passes/v1/services/list"
+        url = "https://tanos-cp.dt-teh.ru/api/passes/v1/services/list"
         response: Response = requests.get(url)
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
@@ -327,14 +327,14 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается  "Unauthorized" получено {response_data["message"]}',
+            f'Ожидается "Unauthorized" получено {response_data["message"]}',
         )
 
     def test_unauth_access_post_serv_list(self):
         """
-        Тестирование эндпоинта https://tanos-cp.dt-teh.ru/api/passes/v1/update
+        Тестирование эндпоинта /update
         """
-        url: str = "https://tanos-cp.dt-teh.ru/api/passes/v1/update"
+        url = "https://tanos-cp.dt-teh.ru/api/passes/v1/update"
         response: Response = requests.post(url)
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
@@ -355,14 +355,14 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается  "Unauthorized" получено {response_data["message"]}',
+            f'Ожидается "Unauthorized" получено {response_data["message"]}',
         )
 
     def test_unauth_access_post_app_creat_upd(self):
         """
-        Тестирование эндпоинта https://tanos-cp.dt-teh.ru/api/passes/v1/application/create-or-update
+        Тестирование эндпоинта application/create-or-update
         """
-        url: str = "https://tanos-cp.dt-teh.ru/api/passes/v1/application/create-or-update"
+        url = "https://tanos-cp.dt-teh.ru/api/passes/v1/application/create-or-update"
         response: Response = requests.post(url)
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
@@ -383,14 +383,14 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается  "Unauthorized" получено {response_data["message"]}',
+            f'Ожидается "Unauthorized" получено {response_data["message"]}',
         )
 
     def test_unauth_access_post_creat_upd_company(self):
         """
-        Тестирование эндпоинта https://tanos-cp.dt-teh.ru/api/passes/v1/create-or-update/company
+        Тестирование эндпоинта /create-or-update/company
         """
-        url: str = (
+        url = (
             "https://tanos-cp.dt-teh.ru/api/passes/v1/create-or-update/company"
         )
         response: Response = requests.post(url)
@@ -413,14 +413,14 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается  "Unauthorized" получено {response_data["message"]}',
+            f'Ожидается "Unauthorized" получено {response_data["message"]}',
         )
 
     def test_unauth_access_post_creat_upd_trans_own(self):
         """
-        Тестирование эндпоинта https://tanos-cp.dt-teh.ru/api/passes/v1/create-or-update/transport_owner_by_vrc
+        Тестирование эндпоинта /create-or-update/transport_owner_by_vrc
         """
-        url: str = "https://tanos-cp.dt-teh.ru/api/passes/v1/create-or-update/transport_owner_by_vrc"
+        url = "https://tanos-cp.dt-teh.ru/api/passes/v1/create-or-update/transport_owner_by_vrc"
         response: Response = requests.post(url)
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
@@ -441,7 +441,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается  "Unauthorized" получено {response_data["message"]}',
+            f'Ожидается "Unauthorized" получено {response_data["message"]}',
         )
 
 
