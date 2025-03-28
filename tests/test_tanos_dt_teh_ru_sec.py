@@ -23,6 +23,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/list"
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -32,13 +33,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -51,6 +52,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/application/list"
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -60,13 +62,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -79,6 +81,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/application/export"
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -88,13 +91,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -109,6 +112,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             "https://tanos-cp.dt-teh.ru/api/passes/v1/allowed-zona-passes/list"
         )
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -118,6 +122,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
@@ -137,6 +142,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/status-passes/list"
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -146,13 +152,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -166,6 +172,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             "pass-type-by-time-of-the-day/list"
         )
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -175,13 +182,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -194,6 +201,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/pass-type/list"
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -203,13 +211,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -224,6 +232,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             "https://tanos-cp.dt-teh.ru/api/passes/v1/application/status/list"
         )
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -233,13 +242,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -252,6 +261,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/company/list"
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -261,13 +271,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -280,6 +290,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/transport_owner_by_vrc/list"
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -289,13 +300,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -308,6 +319,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/services/list"
         response: Response = requests.get(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -317,13 +329,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -336,6 +348,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/update"
         response: Response = requests.post(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -345,13 +358,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -364,6 +377,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/application/create-or-update"
         response: Response = requests.post(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -373,13 +387,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -394,6 +408,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             "https://tanos-cp.dt-teh.ru/api/passes/v1/create-or-update/company"
         )
         response: Response = requests.post(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -403,13 +418,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
@@ -422,6 +437,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = "https://tanos-cp.dt-teh.ru/api/passes/v1/create-or-update/transport_owner_by_vrc"
         response: Response = requests.post(url)
+
         err_msg = (
             f"Ошибка авторизации или неверные учетные данные: "
             f"{response.status_code}"
@@ -431,13 +447,13 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             401,
             err_msg,
         )
+
         response_data = response.json()
         self.assertIn(
             "message",
             response_data,
             "Ключ message не найден в ответе от сервера",
         )
-
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
