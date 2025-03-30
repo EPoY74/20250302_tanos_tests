@@ -1,6 +1,8 @@
 """
 Тестирует endpoints API пропусков на корректный ответ,
 когда пользователь не авторизован
+Testing if API endpoints respond correctly
+to unauthenticated requests
 """
 
 import unittest
@@ -17,16 +19,17 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         unittest (_type_): _description_
     """
 
-    def test_unauth_access_list(self):
+    # Выводим в случае ответа, отличного от Unauthorized
+    # Show if the response is not Unauthorized
+    ERR_UNAUTH_MSG = 'Ожидается "Unauthorized" получено'
+
+    def _check_authorisation(self, response: Response) -> None:
+        """Проверяет на корректность ответа
+        Ожидаю ошибку 401
         """
-        Тестирование эндпоинта /list
-        """
-        url = "https://tanos-cp.dt-teh.ru/api/passes/v1/list"
-        response: Response = requests.get(url)
 
         err_msg = (
-            f"Ошибка авторизации или неверные учетные данные: "
-            f"{response.status_code}"
+            f"Неверные данные ответа, ожидается 401:{response.status_code}"
         )
         self.assertEqual(
             response.status_code,
@@ -34,16 +37,31 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             err_msg,
         )
 
-        response_data = response.json()
+    def _check_message_key(self, response_data: Response) -> None:
+        """
+        Проверяю наличие обязательного ключа в ответе
+        Проверяю ключ "massage"
+        """
+
         self.assertIn(
             "message",
             response_data,
-            "Ключ message не найден в ответе от сервера",
+            'Ключ "message" не найден в ответе от сервера',
         )
+
+    def test_unauth_access_list(self):
+        """
+        Тестирование эндпоинта /list
+        """
+        url = "https://tanos-cp.dt-teh.ru/api/passes/v1/list"
+        response: Response = requests.get(url)
+        self._check_authorisation(response)
+        response_data = response.json()
+        self._check_message_key(response_data)
         self.assertEqual(
-            response_data["message"],
+            response.json()["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f" {response_data['message']}",
         )
 
     def test_unauth_access_app_list(self):
@@ -64,15 +82,11 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         )
 
         response_data = response.json()
-        self.assertIn(
-            "message",
-            response_data,
-            "Ключ message не найден в ответе от сервера",
-        )
+        self._check_message_key(response_data)
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_app_export(self):
@@ -101,7 +115,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_allowed_zona_passes_list(self):
@@ -133,7 +147,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_status_passes_list(self):
@@ -162,7 +176,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_time_day_list(self):
@@ -192,7 +206,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_pass_time_list(self):
@@ -221,7 +235,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_app_status_list(self):
@@ -252,7 +266,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_comp_list(self):
@@ -281,7 +295,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_transp_list(self):
@@ -310,7 +324,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_serv_list(self):
@@ -339,7 +353,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_post_serv_list(self):
@@ -368,7 +382,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_post_app_creat_upd(self):
@@ -397,7 +411,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_post_creat_upd_company(self):
@@ -428,7 +442,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
     def test_unauth_access_post_creat_upd_trans_own(self):
@@ -457,7 +471,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         self.assertEqual(
             response_data["message"],
             "Unauthorized",
-            f'Ожидается "Unauthorized" получено {response_data["message"]}',
+            f"ERR_UNAUTH_MSG {response_data['message']}",
         )
 
 
