@@ -1,8 +1,11 @@
 """
-Тестирует endpoints API пропусков на корректный ответ,
-когда пользователь не авторизован
-Testing if API endpoints respond correctly
-to unauthenticated requests
+Тестирует endpoints API работы с пропусками на автомашины (на КАД и т.д.)
+на корректный ответ, когда пользователь не авторизован
+Tests vehicle pass API endpoints (for KAD, etc.)
+for correct unauthorized response
+Автор: Евгений Петров (Eugenii Petrov)
+E-mail: p174@mail.ru
+Phone: +7 952 517 4228
 """
 
 import unittest
@@ -12,8 +15,11 @@ from requests import Response
 
 
 class TestUnautorezedAccessPassesV1(unittest.TestCase):
-    """Тестирование API пропуска на корректный ответ, когда пользователь
-    не авторизован.
+    """
+    Тестирует endpoints API работы с пропусками на автомашины (на КАД и т.д.)
+    на корректный ответ, когда пользователь не авторизован
+    Tests vehicle pass API endpoints (for KAD, etc.)
+    for correct unauthorized response
 
     Args:
         unittest (_type_): _description_
@@ -27,7 +33,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
     #  Base URL of the API being tested
     _BASE_TESTING_URL = "https://tanos-cp.dt-teh.ru/api/passes/v1"
 
-    def _check_authorisation(self, response: Response) -> None:
+    def _check_authorization(self, response: Response) -> None:
         """
         Проверяет на корректность ответа. Ожидаю ошибку 401
         Validates response correctness. Expects 401 error
@@ -62,7 +68,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
         response_data = response.json()
         self._check_message_key(response_data)
         self.assertEqual(
@@ -78,7 +84,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/application/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -95,7 +101,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/application/export"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -112,7 +118,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/allowed-zona-passes/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -129,7 +135,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/status-passes/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -146,7 +152,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/pass-type-by-time-of-the-day/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -163,7 +169,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/pass-type/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -180,7 +186,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/application/status/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -197,7 +203,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/company/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -214,7 +220,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/transport_owner_by_vrc/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -231,7 +237,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/services/list"
         response: Response = requests.get(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -248,7 +254,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/update"
         response: Response = requests.post(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -265,7 +271,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/application/create-or-update"
         response: Response = requests.post(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -282,7 +288,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
         """
         url = self._BASE_TESTING_URL + "/create-or-update/company"
         response: Response = requests.post(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response_data)
@@ -301,7 +307,7 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             self._BASE_TESTING_URL + "/create-or-update/transport_owner_by_vrc"
         )
         response: Response = requests.post(url)
-        self._check_authorisation(response)
+        self._check_authorization(response)
 
         response_data = response.json()
         self._check_message_key(response)
