@@ -1,0 +1,15 @@
+https://tanos-cp.dt-teh.ru/api/passes/v1/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/application/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/application/export
+https://tanos-cp.dt-teh.ru/api/passes/v1/allowed-zona-passes/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/status-passes/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/pass-type-by-time-of-the-day/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/pass-type/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/application/status/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/company/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/transport_owner_by_vrc/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/services/list
+https://tanos-cp.dt-teh.ru/api/passes/v1/update
+https://tanos-cp.dt-teh.ru/api/passes/v1/application/create-or-update
+https://tanos-cp.dt-teh.ru/api/passes/v1/create-or-update/company
+https://tanos-cp.dt-teh.ru/api/passes/v1/create-or-update/transport_owner_by_vrc
