@@ -31,10 +31,6 @@ class TestingEndpoints(unittest.TestCase):
     #  Show if the response is not Unauthorized
     _ERR_UNAUTH_MSG: str = 'Ожидается "Unauthorized", получено'
 
-    #  Базовый URL тестируемого API
-    #  Base URL of the API being tested
-    _BASE_TESTING_URL = "https://tanos-cp.dt-teh.ru/api/passes/v1"
-
     def _check_authorization(self, response: Response) -> None:
         """
         Проверяет на корректность ответа. Ожидаю ошибку 401
