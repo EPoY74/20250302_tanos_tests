@@ -10,12 +10,13 @@ Phone: +7 952 517 4228
 """
 
 import unittest
+from typing import Callable
 
 import requests
 from requests import Response
 
 
-class TestUnautorezedAccessPassesV1(unittest.TestCase):
+class TestingEndpoints(unittest.TestCase):
     """
     Тестирует endpoints API работы с пропусками на автомашины (на КАД и т.д.)
     на корректный ответ, когда пользователь не авторизован
@@ -62,29 +63,51 @@ class TestUnautorezedAccessPassesV1(unittest.TestCase):
             'Ключ "message" не найден в ответе от сервера',
         )
 
-    def test_unauth_access_list(self):
-        """
-        Тестирование всех эндпоинтов. Список эндпоинотов берется
-        из файла endpoints_to_test.tst
-        """
-        with open("./endpoints_to_test.tst") as endpoints_file:
-            line: str = ""
-            for line in endpoints_file:
-                with self.subTest(line=line):
-                    try:
-                        # print(line.strip())
-                        response: Response = requests.get(line.strip("\n\r"))
-                        self._check_authorization(response)
-                        response_data = response.json()
-                        self._check_message_key(response_data)
-                        self.assertEqual(
-                            response.json()["message"],
-                            "Unauthorized",
-                            f"{self._ERR_UNAUTH_MSG} {response_data['message']}",
-                        )
-                    except Exception as err:
-                        self.fail(f"Ошибка в {line}: {str(err)}")
 
+def create_test_factory(
+    line: str,
+) -> Callable[[unittest.TestCase], None]:
+    """Фабрика тестовых методов"""
+
+    def test_factory(self) -> None:
+        """
+        Тeстирую заданный эндпоинт
+        """
+        # print(line.strip())
+        response: Response = requests.get(line.strip("\n\r"))
+        self._check_authorization(response)
+        response_data = response.json()
+        self._check_message_key(response_data)
+        self.assertEqual(
+            response.json()["message"],
+            "Unauthorized",
+            f"{self._ERR_UNAUTH_MSG} {response_data['message']}",
+        )
+
+    return test_factory
+
+
+def sanitize_identifier(text: str) -> str:
+    """
+    Убираю все символы, не подходящие в имени метода
+    Removing all invalid method name characters
+    """
+    cleaned = "".join(c for c in text if c.isidentifier() or c.isdigit())
+    while cleaned and cleaned[0].isdigit():
+        cleaned = cleaned[1:]
+    return cleaned or "_"
+
+
+with open("endpoints_to_test.tst") as endpoints_file:
+    line: str = ""
+    for line in endpoints_file:
+        # print(line)
+        clean_line = sanitize_identifier(line)
+        #  Не забываем написать test_ !!!!
+        #  Иначе тест не будет запущен!
+        test_name = f"test_{clean_line}"
+        test_method = create_test_factory(line)
+        setattr(TestingEndpoints, test_name, test_method)
 
 if __name__ == "__main__":
     unittest.main()
